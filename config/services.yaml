@@ -1,0 +1,16 @@
+services:
+
+  WildSiena\GoogleMapsBundle\Model\GoogleMap:
+    autowire: true
+
+  WildSiena\GoogleMapsBundle\Model\LoaderOptions:
+    autowire: true
+
+  WildSiena\GoogleMapsBundle\Model\MapOptions:
+    autowire: true
+
+  WildSiena\GoogleMapsBundle\Twig\GoogleMapsExtension:
+    autowire: true
+    arguments:
+      $stimulusHelper: '@stimulus.helper'
+    tags: [twig.extension]
