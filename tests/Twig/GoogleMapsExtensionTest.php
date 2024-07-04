@@ -16,58 +16,70 @@ use WildSiena\GoogleMapsBundle\Twig\GoogleMapsExtension;
 
 class GoogleMapsExtensionTest extends TestCase
 {
+    const CURLY_BRACKET_OPEN = '&#x7B;';
+    const CURLY_BRACKET_CLOSE = '&#x7D;';
+    const SQUARE_BRACKET_OPEN = '&#x5B;';
+    const SQUARE_BRACKET_CLOSE = '&#x5D;';
+    const COLON = '&#x3A;';
+    const DOUBLE_QUOT = '&quot;';
     private GoogleMapsExtension $googleMapsExtension;
     private GoogleMap $googleMap;
-    private string $expect;
+
+    private function toDataValue(string $value): string
+    {
+        return str_replace(
+            ['{','}','[',']',':','"'],
+            [self::CURLY_BRACKET_OPEN, self::CURLY_BRACKET_CLOSE, self::SQUARE_BRACKET_OPEN, self::SQUARE_BRACKET_CLOSE, self::COLON, self::DOUBLE_QUOT],
+            $value
+        );
+    }
 
     protected function setUp(): void
     {
+        // Dependencies
         $stimulusHelper = new StimulusHelper(null);
         $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncode()]);
+
+        // GoogleMaps data
         $loaderOptions = new LoaderOptions();
         $loaderOptions->setApiKey('api_123456')->setVersion('weekly');
         $mapOptions = new MapOptions();
-        $mapOptions->setCenter([-43.00, 29.20])->setZoom(7);
+        $mapOptions->setCenter(['lat' => -43.00, 'lng' => 29.20])->setZoom(7);
         $this->googleMapsExtension = new GoogleMapsExtension($stimulusHelper, $serializer);
         $this->googleMap = new GoogleMap();
         $this->googleMap
             ->setLoaderOptions($loaderOptions)
             ->setMapOptions($mapOptions);
-
-        // Generate expected value
-        $loaderOptionsJson = \str_replace(['{','}','[', ']',':'], ['&#x7B;','&#x7D;','&#x5B;','&#x5D;','&#x3A;'], \htmlspecialchars(
-            $serializer->serialize($this->googleMap->getLoaderOptions(), 'json'),
-            flags: \ENT_QUOTES | \ENT_SUBSTITUTE,
-            encoding: 'UTF-8',
-        ));
-        $mapOptionsJson = \str_replace(['{','}','[', ']',':'], ['&#x7B;','&#x7D;','&#x5B;','&#x5D;','&#x3A;'], \htmlspecialchars(
-            $serializer->serialize($this->googleMap->getMapOptions(), 'json'),
-            flags: \ENT_QUOTES | \ENT_SUBSTITUTE,
-            encoding: 'UTF-8',
-        ));
-        $dataController = "data-controller=\"wild-siena--google-maps--google-maps\"";
-        $dataLoaderOptionsValue = "data-wild-siena--google-maps--google-maps-loader-options-value=\"$loaderOptionsJson\"";
-        $dataMapOptionsValue = "data-wild-siena--google-maps--google-maps-map-options-value=\"$mapOptionsJson\"";
-        $this->expect = $dataController . " " . $dataLoaderOptionsValue . " " . $dataMapOptionsValue;
     }
 
     public function testGetGoogleMapsAttributes(): void
     {
-
+        $expectedLoaderOptionsValue = $this->toDataValue('{"apiKey":"api_123456","version":"weekly"}');
+        $expectedMapOptionsValue = $this->toDataValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7}');
+        $expected = "data-controller=\"wild-siena--google-maps-bundle--google-maps\" ";
+        $expected .= "data-wild-siena--google-maps-bundle--google-maps-loader-options-value=\"$expectedLoaderOptionsValue\" ";
+        $expected .= "data-wild-siena--google-maps-bundle--google-maps-map-options-value=\"$expectedMapOptionsValue\"";
         $result = $this->googleMapsExtension->getGoogleMapsAttributes($this->googleMap);
-        $this->assertEquals($this->expect, $result);
+        $this->assertStringContainsString('wild-siena--google-maps-bundle--google-maps', $result);
+        $this->assertEquals($expected, $result);
     }
 
     public function testRenderGoogleMaps(): void
     {
+        $expectedLoaderOptionsValue = $this->toDataValue('{"apiKey":"api_123456","version":"weekly"}');
+        $expectedMapOptionsValue = $this->toDataValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7}');
+        $expected = "data-controller=\"wild-siena--google-maps-bundle--google-maps\" ";
+        $expected .= "data-wild-siena--google-maps-bundle--google-maps-loader-options-value=\"$expectedLoaderOptionsValue\" ";
+        $expected .= "data-wild-siena--google-maps-bundle--google-maps-map-options-value=\"$expectedMapOptionsValue\"";
+
         $result = $this->googleMapsExtension->renderGoogleMaps($this->googleMap);
-        $this->assertEquals("<div " . $this->expect . "></div>", $result);
+        $this->assertStringContainsString('wild-siena--google-maps-bundle--google-maps', $result);
+        $this->assertEquals("<div " . $expected . "></div>", $result);
     }
 
     protected function tearDown(): void
     {
         unset($this->googleMap);
         unset($this->googleMapsExtension);
-        unset($this->expect);
     }
 }

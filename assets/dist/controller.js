@@ -1,0 +1,1 @@
+import{Controller as t}from"@hotwired/stimulus";import{Loader as o}from"@googlemaps/js-api-loader";export default class extends t{static values={loaderOptions:Object,mapOptions:Object};connect(){new o(this.loaderOptionsValue).importLibrary("maps").then(({Map:e})=>new e(this.element,this.mapOptionsValue)).catch(console.error)}}

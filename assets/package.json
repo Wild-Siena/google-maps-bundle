@@ -20,7 +20,7 @@
   },
   "author": "Alexander Wild",
   "license": "MIT",
-  "description": "",
+  "description": "Stimulus controller for rendering Google Map.",
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.6",
     "@hotwired/stimulus": "^3.2.2"

@@ -14,6 +14,6 @@ export default class extends Controller {
         loader
             .importLibrary("maps")
             .then(({Map}) => new Map(this.element, this.mapOptionsValue))
-            .catch()
+            .catch(console.error)
     }
 }

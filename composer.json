@@ -1,5 +1,6 @@
 {
     "name": "wild-siena/google-maps-bundle",
+    "description": "Symfony google maps bundle. Create a Google map object in php and render it with twig function.",
     "type": "symfony-bundle",
     "keywords": ["symfony-ux"],
     "license": "MIT",
@@ -24,5 +25,11 @@
         "phpstan/phpstan": "^1.11"
     },
     "config": {
+    },
+    "scripts": {
+        "test-scripts": {
+            "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon",
+            "phpunit": "vendor/bin/phpunit --testdox tests/"
+        }
     }
 }

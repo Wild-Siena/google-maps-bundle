@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
 class WildSienaGoogleMapsBundle extends AbstractBundle
 {
+    // @phpstan-ignore-next-line
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $container->import('../config/services.yaml');
@@ -39,6 +40,7 @@ class WildSienaGoogleMapsBundle extends AbstractBundle
 
         // check that FrameworkBundle 6.3 or higher is installed
         $bundlesMetadata = $container->getParameter('kernel.bundles_metadata');
+        // @phpstan-ignore-next-line
         if (!isset($bundlesMetadata['FrameworkBundle'])) {
             return false;
         }

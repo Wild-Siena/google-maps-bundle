@@ -126,7 +126,6 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/
@@ -285,3 +284,5 @@ fabric.properties
 .envrc
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,symfony,phpunit,phpstorm,node
+
+composer.lock
