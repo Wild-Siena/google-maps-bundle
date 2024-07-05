@@ -1,3 +1,7 @@
+Google Maps Bundle
+==================
+With this bundle you can render and integrate GoogleMaps in your symfony project.
+
 Requirements
 ============
 
@@ -65,3 +69,4 @@ For more information see the [Documentation](./docs/index.md) there you find som
 
 Roadmap
 =======
+See all issues there are created for version [v1.0.0](https://github.com/Wild-Siena/google-maps-bundle/milestone/1)
