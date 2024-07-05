@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WildSiena\GoogleMapsBundle\Twig;
 
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\UX\StimulusBundle\Dto\StimulusAttributes;
 use Symfony\UX\StimulusBundle\Helper\StimulusHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -34,15 +35,31 @@ class GoogleMapsExtension extends AbstractExtension
         ];
     }
 
-    public function renderGoogleMaps(GoogleMap $googleMap): string
+    /**
+     * @param GoogleMap $googleMap
+     * @param array<string, string> $attributes
+     * @return string
+     */
+    public function renderGoogleMaps(GoogleMap $googleMap, array $attributes = []): string
     {
-        $googleMapControllerAttrs = $this->getGoogleMapsAttributes($googleMap);
+        $stimulusAttributes = $this->stimulusHelper->createStimulusAttributes();
+        foreach ($attributes as $attribute => $value) {
+            $stimulusAttributes->addAttribute($attribute, $value);
+        }
+
+        $googleMapControllerAttrs = $this->buildHtmlAttributes($stimulusAttributes, $googleMap);
         return sprintf('<div %s></div>', $googleMapControllerAttrs);
     }
 
     public function getGoogleMapsAttributes(GoogleMap $googleMap): string
     {
         $stimulusAttributes = $this->stimulusHelper->createStimulusAttributes();
+        return $this->buildHtmlAttributes($stimulusAttributes, $googleMap);
+    }
+
+    private function buildHtmlAttributes(StimulusAttributes $stimulusAttributes, GoogleMap $googleMap): string
+    {
+
         $stimulusAttributes->addController(
             controllerName: 'wild-siena/google-maps-bundle/google_maps',
             controllerValues: [

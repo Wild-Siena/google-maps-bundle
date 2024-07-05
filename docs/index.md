@@ -44,6 +44,18 @@ Now you can use your generated GoogleMap model and the google_maps twig function
 {{ google_maps(map) }}
 ```
 
+The google_maps twig function has a second parameter. There you can set attributes like class.
+
+```html
+{{ google_maps(map, {class: 'h-full'}) }}
+```
+
+This will render something like this.
+
+```html
+<div data-controller="wild-siena--google-maps-bundle--google-maps" class="h-full" ...></div>
+```
+
 There is a second twig function if you want only the generated attributes.
 You have to put it into a html tag.
 

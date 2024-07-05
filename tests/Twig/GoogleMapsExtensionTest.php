@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WildSiena\GoogleMapsBundle\Tests\Twig;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -25,13 +26,33 @@ class GoogleMapsExtensionTest extends TestCase
     private GoogleMapsExtension $googleMapsExtension;
     private GoogleMap $googleMap;
 
-    private function toDataValue(string $value): string
+    private static function toDataValue(string $value): string
     {
         return str_replace(
             ['{','}','[',']',':','"'],
             [self::CURLY_BRACKET_OPEN, self::CURLY_BRACKET_CLOSE, self::SQUARE_BRACKET_OPEN, self::SQUARE_BRACKET_CLOSE, self::COLON, self::DOUBLE_QUOT],
             $value
         );
+    }
+
+    /**
+     * @return array<string, array<mixed>>
+     */
+    public static function renderGoogleMapsDataProvider(): array
+    {
+        $expectedLoaderOptionsValue = self::toDataValue('{"apiKey":"api_123456","version":"weekly"}');
+        $expectedMapOptionsValue = self::toDataValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7}');
+        $expected = "data-controller=\"wild-siena--google-maps-bundle--google-maps\" ";
+        $expected .= "data-wild-siena--google-maps-bundle--google-maps-loader-options-value=\"$expectedLoaderOptionsValue\" ";
+        $expected .= "data-wild-siena--google-maps-bundle--google-maps-map-options-value=\"$expectedMapOptionsValue\"";
+
+        $expectedWithClassAttr = "data-controller=\"wild-siena--google-maps-bundle--google-maps\" class=\"h-full\" ";
+        $expectedWithClassAttr .= "data-wild-siena--google-maps-bundle--google-maps-loader-options-value=\"$expectedLoaderOptionsValue\" ";
+        $expectedWithClassAttr .= "data-wild-siena--google-maps-bundle--google-maps-map-options-value=\"$expectedMapOptionsValue\"";
+        return [
+            'no attributes' => [[], $expected],
+            'class attribute' => [['class' => 'h-full'], $expectedWithClassAttr]
+        ];
     }
 
     protected function setUp(): void
@@ -64,15 +85,15 @@ class GoogleMapsExtensionTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testRenderGoogleMaps(): void
+    /**
+     * @param array<string, string> $attributes
+     * @param string $expected
+     * @return void
+     */
+    #[DataProvider('renderGoogleMapsDataProvider')]
+    public function testRenderGoogleMaps(array $attributes, string $expected): void
     {
-        $expectedLoaderOptionsValue = $this->toDataValue('{"apiKey":"api_123456","version":"weekly"}');
-        $expectedMapOptionsValue = $this->toDataValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7}');
-        $expected = "data-controller=\"wild-siena--google-maps-bundle--google-maps\" ";
-        $expected .= "data-wild-siena--google-maps-bundle--google-maps-loader-options-value=\"$expectedLoaderOptionsValue\" ";
-        $expected .= "data-wild-siena--google-maps-bundle--google-maps-map-options-value=\"$expectedMapOptionsValue\"";
-
-        $result = $this->googleMapsExtension->renderGoogleMaps($this->googleMap);
+        $result = $this->googleMapsExtension->renderGoogleMaps($this->googleMap, $attributes);
         $this->assertStringContainsString('wild-siena--google-maps-bundle--google-maps', $result);
         $this->assertEquals("<div " . $expected . "></div>", $result);
     }
