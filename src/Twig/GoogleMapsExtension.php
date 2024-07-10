@@ -59,13 +59,20 @@ class GoogleMapsExtension extends AbstractExtension
 
     private function buildHtmlAttributes(StimulusAttributes $stimulusAttributes, GoogleMap $googleMap): string
     {
+        //Validate that markers are not null.
+        //If they are null they will not appear in the controllerValues.
+        $markers = [];
+        if($googleMap->getMarkers() !== null) {
+           $markers['markers'] = $this->serializer->serialize($googleMap->getMarkers(), 'json');
+        }
+
 
         $stimulusAttributes->addController(
             controllerName: 'wild-siena/google-maps-bundle/google_maps',
-            controllerValues: [
+            controllerValues: \array_merge([
                 'loaderOptions' => $this->serializer->serialize($googleMap->getLoaderOptions(), 'json'),
                 'mapOptions' => $this->serializer->serialize($googleMap->getMapOptions(), 'json'),
-            ]
+            ], $markers)
         );
         return sprintf('%s', $stimulusAttributes);
     }
