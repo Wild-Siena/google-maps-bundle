@@ -8,27 +8,27 @@ class MapOptions
     protected string $mapId;
 
     /**
-     * @param array{lat: float, lng: float}|LatLng $center
+     * @param LatLng $center
      * @param int $zoom
      */
-    public function __construct(protected array|LatLng $center, protected int $zoom)
+    public function __construct(protected LatLng $center, protected int $zoom)
     {
 
     }
 
     /**
-     * @return array{lat: float, lng: float}|LatLng
+     * @return LatLng
      */
-    public function getCenter(): array|LatLng
+    public function getCenter(): LatLng
     {
         return $this->center;
     }
 
     /**
-     * @param array{lat: float, lng: float}|LatLng $center
+     * @param LatLng $center
      * @return MapOptions
      */
-    public function setCenter(array|LatLng $center): MapOptions
+    public function setCenter(LatLng $center): MapOptions
     {
         $this->center = $center;
         return $this;
