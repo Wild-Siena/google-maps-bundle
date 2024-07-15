@@ -14,8 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- README
-- docs
 - Models GoogleMap, LoaderOptions, MapOptions. ([#1](https://github.com/Wild-Siena/google-maps-bundle/issues/1))
 
 ### Removed
