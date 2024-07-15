@@ -5,8 +5,11 @@ namespace WildSiena\GoogleMapsBundle\Model;
 
 class LoaderOptions
 {
-    protected string $apiKey;
-    protected string $version;
+
+    public function __construct(protected string $apiKey, protected string $version)
+    {
+
+    }
 
     /**
      * @return string

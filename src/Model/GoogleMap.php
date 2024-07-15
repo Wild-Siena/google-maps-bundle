@@ -8,6 +8,9 @@ class GoogleMap
     protected LoaderOptions $loaderOptions;
     protected MapOptions $mapOptions;
 
+    /** @var null|Marker[]  */
+    protected ?array $markers = null;
+
     /**
      * @return LoaderOptions
      */
@@ -43,4 +46,23 @@ class GoogleMap
         $this->mapOptions = $mapOptions;
         return $this;
     }
+
+    /**
+     * @return null|Marker[]
+     */
+    public function getMarkers(): ?array
+    {
+        return $this->markers;
+    }
+
+    /**
+     * @param null|Marker[] $markers
+     * @return GoogleMap
+     */
+    public function setMarkers(?array $markers): GoogleMap
+    {
+        $this->markers = $markers;
+        return $this;
+    }
+
 }

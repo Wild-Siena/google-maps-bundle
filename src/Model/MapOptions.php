@@ -5,25 +5,30 @@ namespace WildSiena\GoogleMapsBundle\Model;
 
 class MapOptions
 {
-    /**
-     * @var array{lat: float, lng: float}
-     */
-    protected array $center;
-    protected int $zoom;
+    protected string $mapId;
 
     /**
-     * @return array{lat: float, lng: float}
+     * @param LatLng $center
+     * @param int $zoom
      */
-    public function getCenter(): array
+    public function __construct(protected LatLng $center, protected int $zoom)
+    {
+
+    }
+
+    /**
+     * @return LatLng
+     */
+    public function getCenter(): LatLng
     {
         return $this->center;
     }
 
     /**
-     * @param array{lat: float, lng: float} $center
+     * @param LatLng $center
      * @return MapOptions
      */
-    public function setCenter(array $center): MapOptions
+    public function setCenter(LatLng $center): MapOptions
     {
         $this->center = $center;
         return $this;
@@ -44,6 +49,24 @@ class MapOptions
     public function setZoom(int $zoom): MapOptions
     {
         $this->zoom = $zoom;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMapId(): string
+    {
+        return $this->mapId;
+    }
+
+    /**
+     * @param string $mapId
+     * @return MapOptions
+     */
+    public function setMapId(string $mapId): MapOptions
+    {
+        $this->mapId = $mapId;
         return $this;
     }
 

@@ -7,7 +7,13 @@ services:
     autowire: true
 
   WildSiena\GoogleMapsBundle\Model\MapOptions:
-    autowire: true
+    autowire: false
+
+  WildSiena\GoogleMapsBundle\Model\Marker:
+    autowire: false
+
+  WildSiena\GoogleMapsBundle\Model\LatLng:
+    autowire: false
 
   WildSiena\GoogleMapsBundle\Twig\GoogleMapsExtension:
     autowire: true

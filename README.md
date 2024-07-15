@@ -1,13 +1,13 @@
-Google Maps Bundle
+Symfony Google Maps Bundle
 ==================
-With this bundle you can render and integrate GoogleMaps in your symfony project.
+With this symfony bundle you can render GoogleMaps in your symfony webapp.
 
 Requirements
 ============
 
-You need @hotwired/stimulus to use this bundle.
+PHP 8.1 or higher
 
-You can install symfony/stimulus-bundle.
+Symfony 6.4 or higher
 
 Installation
 ============

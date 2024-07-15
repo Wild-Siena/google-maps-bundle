@@ -1,7 +1,8 @@
 Usage
 ===============
-Using dependencies injection you can use the GoogleMap Model in your services and controller
+This is a simple example how you can use this bundle.
 
+### Basic
 ```php
 use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,23 +11,19 @@ use Symfony\Component\Routing\Attribute\Route;
 use WildSiena\GoogleMapsBundle\Model\GoogleMap;
 use WildSiena\GoogleMapsBundle\Model\LoaderOptions;
 use WildSiena\GoogleMapsBundle\Model\MapOptions;
+use WildSiena\GoogleMapsBundle\Model\LatLng;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
     #[Template('home/index.html.twig')]
-    public function index(GoogleMap $googleMap): array
+    public function index(): array
     {
-            $loaderOptions = new LoaderOptions();
-            $loaderOptions
-                ->setApiKey('<YOUR_API_KEY>')
-                ->setVersion('weekly');
+            
+            $loaderOptions = new LoaderOptions(apiKey: '<YOUR_API_KEY>', version: 'weekly');    
+            $mapOptions = new MapOptions(center: new LatLng(lat: 24.01, lng: 32.22), zoom: 7);
                 
-            $mapOptions = new MapOptions();
-            $mapOptions
-                ->setCenter(['lat' => 24.01, 'lng' => 32.22])
-                ->setZoom(7);
-                
+            $googleMap = new GoogleMap();
             $googleMap
                 ->setLoaderOptions($loaderOptions)
                 ->setMapOptions($mapOptions);
@@ -61,4 +58,54 @@ You have to put it into a html tag.
 
 ```html
 <div {{ google_maps_attrs(map) }}></div>
+```
+
+Examples
+========
+
+### Example with Marker
+
+When you use marker you need a mapId.
+
+```php
+// ...
+$loaderOptions = new LoaderOptions(apiKey: '<YOUR_API_KEY>', version: 'weekly');    
+$mapOptions = new MapOptions(center: new LatLng(lat: 24.01, lng: 32.22), zoom: 7);
+$mapOptions->setMapId('DEMO_MAP_ID') // You can ues DEMO_MAP_ID for development purposes
+$markers = [new Marker(position: new LatLng(lat:24.01, lng:32.22))]
+    
+$googleMap = new GoogleMap();
+$googleMap
+    ->setLoaderOptions($loaderOptions)
+    ->setMapOptions($mapOptions)
+    ->setMarkers($markers);
+// ...
+```
+
+### Example with dependency injection
+
+If you want to inject LoaderOptions you need update your services config
+
+```yaml
+# config/services.yaml
+services:
+    WildSiena\GoogleMapsBundle\Model\LoaderOptions:
+        arguments:
+            $apiKey: '<YOUR_API_KEY>'
+            $version: 'weekly'
+```
+
+```php
+#[Route('/', name: 'app_home')]
+#[Template('home/index.html.twig')]
+public function index(LoaderOptions $loaderOptions, GoogleMap $googleMap): array
+{
+    $mapOptions = new MapOptions(center: new LatLng(lat: 24.01, lng: 32.22), zoom: 7);
+    $markers = [new Marker(position: new LatLng(lat:24.01, lng:32.22))]
+        
+    $googleMap
+        ->setLoaderOptions($loaderOptions)
+        ->setMapOptions($mapOptions)
+        ->setMarkers($markers);
+// ...
 ```
