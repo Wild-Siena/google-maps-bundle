@@ -2,6 +2,15 @@ Usage
 ===============
 This is a simple example how you can use this bundle.
 
+### References
+See references of php classes and some examples.
+
+- [GoogleMap](./google_map_reference.md) class
+- [LoaderOptions](./loader_options_reference.md) class
+- [MapOptions](./map_options_reference.md) class
+- [LatLng](./lat_lng_reference.md) class
+- [Marker](./marker_reference.md) class
+
 ### Basic
 ```php
 use Symfony\Bridge\Twig\Attribute\Template;
@@ -71,8 +80,8 @@ When you use marker you need a mapId.
 // ...
 $loaderOptions = new LoaderOptions(apiKey: '<YOUR_API_KEY>', version: 'weekly');    
 $mapOptions = new MapOptions(center: new LatLng(lat: 24.01, lng: 32.22), zoom: 7);
-$mapOptions->setMapId('DEMO_MAP_ID') // You can ues DEMO_MAP_ID for development purposes
-$markers = [new Marker(position: new LatLng(lat:24.01, lng:32.22))]
+$mapOptions->setMapId('DEMO_MAP_ID'); // You can use DEMO_MAP_ID for development purposes
+$markers = [new Marker(position: new LatLng(lat:24.01, lng:32.22))];
     
 $googleMap = new GoogleMap();
 $googleMap
@@ -101,11 +110,29 @@ services:
 public function index(LoaderOptions $loaderOptions, GoogleMap $googleMap): array
 {
     $mapOptions = new MapOptions(center: new LatLng(lat: 24.01, lng: 32.22), zoom: 7);
-    $markers = [new Marker(position: new LatLng(lat:24.01, lng:32.22))]
+    $markers = [new Marker(position: new LatLng(lat:24.01, lng:32.22))];
         
     $googleMap
         ->setLoaderOptions($loaderOptions)
         ->setMapOptions($mapOptions)
         ->setMarkers($markers);
+// ...
+```
+
+### Example with disabled ui
+
+```php
+// ...
+$loaderOptions = new LoaderOptions(apiKey: '<YOUR_API_KEY>', version: 'weekly');    
+$mapOptions = new MapOptions(center: new LatLng(lat: 24.01, lng: 32.22), zoom: 7);
+$mapOptions->setMapId('DEMO_MAP_ID') // You can ues DEMO_MAP_ID for development purposes
+    ->setDisableDefaultUI(true);
+$markers = [new Marker(position: new LatLng(lat:24.01, lng:32.22))]
+    
+$googleMap = new GoogleMap();
+$googleMap
+    ->setLoaderOptions($loaderOptions)
+    ->setMapOptions($mapOptions)
+    ->setMarkers($markers);
 // ...
 ```

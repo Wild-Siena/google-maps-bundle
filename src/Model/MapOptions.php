@@ -6,6 +6,7 @@ namespace WildSiena\GoogleMapsBundle\Model;
 class MapOptions
 {
     protected string $mapId;
+    protected bool $disableDefaultUI;
 
     /**
      * @param LatLng $center
@@ -67,6 +68,24 @@ class MapOptions
     public function setMapId(string $mapId): MapOptions
     {
         $this->mapId = $mapId;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisableDefaultUI(): bool
+    {
+        return $this->disableDefaultUI;
+    }
+
+    /**
+     * @param bool $disableDefaultUI
+     * @return MapOptions
+     */
+    public function setDisableDefaultUI(bool $disableDefaultUI): MapOptions
+    {
+        $this->disableDefaultUI = $disableDefaultUI;
         return $this;
     }
 
