@@ -1,5 +1,11 @@
 services:
 
+  WildSiena\GoogleMapsBundle\:
+    resource: '../src/'
+    exclude:
+      - '../src/WildSienaGoogleMapsBundle.php'
+      - '../tests/'
+
   WildSiena\GoogleMapsBundle\Model\GoogleMap:
     autowire: true
 

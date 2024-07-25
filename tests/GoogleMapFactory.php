@@ -40,4 +40,14 @@ class GoogleMapFactory
             ->setMarkers([new Marker(position: new LatLng(lat: $lat, lng: $lng))]);
     }
 
+    static function createGoogleMapWithDisabledDefaultUi(): GoogleMap
+    {
+        $mapOptions = self::createMapOptions();
+        $mapOptions->setDisableDefaultUI(true);
+        $googleMap = new GoogleMap();
+        return $googleMap
+            ->setLoaderOptions(self::createLoaderOptions())
+            ->setMapOptions($mapOptions);
+    }
+
 }
