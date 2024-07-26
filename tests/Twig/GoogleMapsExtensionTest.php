@@ -29,6 +29,7 @@ class GoogleMapsExtensionTest extends TestCase
             'class attribute' => [GoogleMapFactory::createGoogleMapBasic(), ['class' => 'h-full'], GoogleMapExpected::getExpectedWithAttr()],
             'markers' => [GoogleMapFactory::createGoogleMapWithMarkers(), [], GoogleMapExpected::getExpectedWithMarkers()],
             'disabled default ui' => [GoogleMapFactory::createGoogleMapWithDisabledDefaultUi(), [], GoogleMapExpected::getExpectedWithDisabledefaultUI()],
+            'disabled default ui activated controls' => [GoogleMapFactory::createGoogleMapWithActivatedControls(), [], GoogleMapExpected::getExpectedWithDisabledefaultUIAndActiveControls()]
         ];
     }
 
@@ -41,6 +42,7 @@ class GoogleMapsExtensionTest extends TestCase
             'no markers' => [GoogleMapFactory::createGoogleMapBasic(), GoogleMapExpected::getDefaultExpected()],
             'markers' => [GoogleMapFactory::createGoogleMapWithMarkers(), GoogleMapExpected::getExpectedWithMarkers()],
             'disabled default ui' => [GoogleMapFactory::createGoogleMapWithDisabledDefaultUi(), GoogleMapExpected::getExpectedWithDisabledefaultUI()],
+            'disabled default ui activated controls' => [GoogleMapFactory::createGoogleMapWithActivatedControls(), GoogleMapExpected::getExpectedWithDisabledefaultUIAndActiveControls()]
         ];
     }
 
