@@ -136,3 +136,25 @@ $googleMap
     ->setMarkers($markers);
 // ...
 ```
+
+### Example using controls
+
+```php
+// ...
+$loaderOptions = new LoaderOptions(apiKey: '<YOUR_API_KEY>', version: 'weekly');    
+$mapOptions = new MapOptions(center: new LatLng(lat: 24.01, lng: 32.22), zoom: 7);
+$mapOptions->setDisableDefaultUI(true)
+    ->setZoomControl(true)
+    ->setMapTypeControl(true)
+    ->setScaleControl(true)
+    ->setStreetViewControl(true)
+    ->setRotateControl(true)
+    ->setFullscreenControl(true);
+    
+$googleMap
+    ->setLoaderOptions($loaderOptions)
+    ->setMapOptions($mapOptions)
+// ...
+```
+
+

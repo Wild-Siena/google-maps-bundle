@@ -7,6 +7,12 @@ class MapOptions
 {
     protected string $mapId;
     protected bool $disableDefaultUI;
+    protected bool $zoomControl;
+    protected bool $mapTypeControl;
+    protected bool $scaleControl;
+    protected bool $streetViewControl;
+    protected bool $rotateControl;
+    protected bool $fullscreenControl;
 
     /**
      * @param LatLng $center
@@ -89,6 +95,112 @@ class MapOptions
         return $this;
     }
 
+    /**
+     * @return bool
+     */
+    public function isZoomControl(): bool
+    {
+        return $this->zoomControl;
+    }
 
+    /**
+     * @param bool $zoomControl
+     * @return MapOptions
+     */
+    public function setZoomControl(bool $zoomControl): MapOptions
+    {
+        $this->zoomControl = $zoomControl;
+        return $this;
+    }
 
+    /**
+     * @return bool
+     */
+    public function isMapTypeControl(): bool
+    {
+        return $this->mapTypeControl;
+    }
+
+    /**
+     * @param bool $mapTypeControl
+     * @return MapOptions
+     */
+    public function setMapTypeControl(bool $mapTypeControl): MapOptions
+    {
+        $this->mapTypeControl = $mapTypeControl;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isScaleControl(): bool
+    {
+        return $this->scaleControl;
+    }
+
+    /**
+     * @param bool $scaleControl
+     * @return MapOptions
+     */
+    public function setScaleControl(bool $scaleControl): MapOptions
+    {
+        $this->scaleControl = $scaleControl;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStreetViewControl(): bool
+    {
+        return $this->streetViewControl;
+    }
+
+    /**
+     * @param bool $streetViewControl
+     * @return MapOptions
+     */
+    public function setStreetViewControl(bool $streetViewControl): MapOptions
+    {
+        $this->streetViewControl = $streetViewControl;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRotateControl(): bool
+    {
+        return $this->rotateControl;
+    }
+
+    /**
+     * @param bool $rotateControl
+     * @return MapOptions
+     */
+    public function setRotateControl(bool $rotateControl): MapOptions
+    {
+        $this->rotateControl = $rotateControl;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFullscreenControl(): bool
+    {
+        return $this->fullscreenControl;
+    }
+
+    /**
+     * @param bool $fullscreenControl
+     * @return MapOptions
+     */
+    public function setFullscreenControl(bool $fullscreenControl): MapOptions
+    {
+        $this->fullscreenControl = $fullscreenControl;
+        return $this;
+    }
+    
 }

@@ -50,4 +50,20 @@ class GoogleMapFactory
             ->setMapOptions($mapOptions);
     }
 
+    static function createGoogleMapWithActivatedControls(): GoogleMap
+    {
+        $mapOptions = self::createMapOptions();
+        $mapOptions->setDisableDefaultUI(true)
+            ->setZoomControl(true)
+            ->setMapTypeControl(true)
+            ->setScaleControl(true)
+            ->setStreetViewControl(true)
+            ->setRotateControl(true)
+            ->setFullscreenControl(true);
+        $googleMap = new GoogleMap();
+        return $googleMap
+            ->setLoaderOptions(self::createLoaderOptions())
+            ->setMapOptions($mapOptions);
+    }
+
 }
