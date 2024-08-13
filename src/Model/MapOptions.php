@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WildSiena\GoogleMapsBundle\Model;
 
+use WildSiena\GoogleMapsBundle\Enum\MapType;
+
 class MapOptions
 {
     protected string $mapId;
@@ -13,6 +15,7 @@ class MapOptions
     protected bool $streetViewControl;
     protected bool $rotateControl;
     protected bool $fullscreenControl;
+    protected MapType $mapTypeId;
 
     /**
      * @param LatLng $center
@@ -202,5 +205,27 @@ class MapOptions
         $this->fullscreenControl = $fullscreenControl;
         return $this;
     }
+
+    /**
+     * @return MapType
+     */
+    public function getMapTypeId(): MapType
+    {
+        return $this->mapTypeId;
+    }
+
+    /**
+     * Set mapTypeId allowed mapTypes are roadmap, satellite, hybrid and terrain.
+     * With this function you can change the display of the map.
+     * @param MapType $mapTypeId
+     * @return MapOptions
+     */
+    public function setMapTypeId(MapType $mapTypeId): MapOptions
+    {
+        $this->mapTypeId = $mapTypeId;
+        return $this;
+    }
+
+
     
 }

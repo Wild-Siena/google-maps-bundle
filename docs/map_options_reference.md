@@ -29,29 +29,37 @@ Map id for using markers. In development, you can set it to ``DEMO_MAP_ID``.
 When set to ``true`` it deactivate the default ui.
 That means you see no buttons like zoom in or zoom out.
 
-**zoomControl**:
+**zoomControl**: bool (optional)
 
 When set to ``true`` it will display the zoom buttons + and -
 
-**mapTypeControl**:
+**mapTypeControl**: bool (optional)
 
 When set to ``true`` it will display the button to switch between map and satellite.
 
-**scaleControl**:
+**scaleControl**: bool (optional)
 
 When set to ``true`` you see the map scale.
 
-**streetViewControl**:
+**streetViewControl**: bool (optional)
 
 When set to ``true`` you see the Pegman control that can be dragged and dropped on the map.
 
-**rotateControl**:
+**rotateControl**: bool (optional)
 
 When set to ``true`` you see the Button where you can change tilt and rotate options for maps containing oblique imagery.
 
-**fullscreenControl**:
+**fullscreenControl**: bool (optional)
 
 When set to ``true`` you see the fullscreen button.
+
+**mapTypeId**: MapType (optional)
+
+You can set the mapTypeId to four different values.
+``MapType::ROADMAP``, ``MapType::SATELLITE``, ``MapType::HYBRID``, ``MapType::TERRAIN``
+With this property you can change the display of the map
+
+
 
 Examples
 --------
@@ -137,4 +145,13 @@ use WildSiena\GoogleMapsBundle\Model\MapOptions;
 $mapOptions = new MapOptions(center: new LatLng(lat: 42.42, lng: 42.42), zoom: 7);
 $mapOptions->setDisableDefaultUI(false)
     ->setFullscreenControl(true);
+```
+
+Create a new MapOptions instance with display a satellite map.
+
+```php
+use WildSiena\GoogleMapsBundle\Model\MapOptions;
+
+$mapOptions = new MapOptions(center: new LatLng(lat: 42.42, lng: 42.42), zoom: 7);
+$mapOptions->setMapTypeId(MapType::SATELLITE);
 ```

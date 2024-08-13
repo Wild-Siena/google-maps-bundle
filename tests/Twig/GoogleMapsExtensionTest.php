@@ -6,9 +6,11 @@ namespace WildSiena\GoogleMapsBundle\Tests\Twig;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
+use Symfony\Component\Serializer\Normalizer\BackedEnumNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\UX\StimulusBundle\Helper\StimulusHelper;
+use WildSiena\GoogleMapsBundle\Enum\MapType;
 use WildSiena\GoogleMapsBundle\Model\GoogleMap;
 use WildSiena\GoogleMapsBundle\Tests\GoogleMapExpected;
 use WildSiena\GoogleMapsBundle\Twig\GoogleMapsExtension;
@@ -29,7 +31,8 @@ class GoogleMapsExtensionTest extends TestCase
             'class attribute' => [GoogleMapFactory::createGoogleMapBasic(), ['class' => 'h-full'], GoogleMapExpected::getExpectedWithAttr()],
             'markers' => [GoogleMapFactory::createGoogleMapWithMarkers(), [], GoogleMapExpected::getExpectedWithMarkers()],
             'disabled default ui' => [GoogleMapFactory::createGoogleMapWithDisabledDefaultUi(), [], GoogleMapExpected::getExpectedWithDisabledefaultUI()],
-            'disabled default ui activated controls' => [GoogleMapFactory::createGoogleMapWithActivatedControls(), [], GoogleMapExpected::getExpectedWithDisabledefaultUIAndActiveControls()]
+            'disabled default ui activated controls' => [GoogleMapFactory::createGoogleMapWithActivatedControls(), [], GoogleMapExpected::getExpectedWithDisabledefaultUIAndActiveControls()],
+            'mapTypeId set to satellite' => [GoogleMapFactory::createGoogleMapWithMapTypeIdSatellite(), [], GoogleMapExpected::getExpectedWithMapTypeIdSatellite()]
         ];
     }
 
@@ -42,7 +45,8 @@ class GoogleMapsExtensionTest extends TestCase
             'no markers' => [GoogleMapFactory::createGoogleMapBasic(), GoogleMapExpected::getDefaultExpected()],
             'markers' => [GoogleMapFactory::createGoogleMapWithMarkers(), GoogleMapExpected::getExpectedWithMarkers()],
             'disabled default ui' => [GoogleMapFactory::createGoogleMapWithDisabledDefaultUi(), GoogleMapExpected::getExpectedWithDisabledefaultUI()],
-            'disabled default ui activated controls' => [GoogleMapFactory::createGoogleMapWithActivatedControls(), GoogleMapExpected::getExpectedWithDisabledefaultUIAndActiveControls()]
+            'disabled default ui activated controls' => [GoogleMapFactory::createGoogleMapWithActivatedControls(), GoogleMapExpected::getExpectedWithDisabledefaultUIAndActiveControls()],
+            'mapTypeId set to satellite' => [GoogleMapFactory::createGoogleMapWithMapTypeIdSatellite(), GoogleMapExpected::getExpectedWithMapTypeIdSatellite()]
         ];
     }
 
@@ -50,7 +54,7 @@ class GoogleMapsExtensionTest extends TestCase
     {
         // Dependencies
         $stimulusHelper = new StimulusHelper(null);
-        $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncode()]);
+        $serializer = new Serializer([new BackedEnumNormalizer(), new ObjectNormalizer()], [new JsonEncode()]);
 
         $this->googleMapsExtension = new GoogleMapsExtension($stimulusHelper, $serializer);
     }

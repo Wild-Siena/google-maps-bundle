@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WildSiena\GoogleMapsBundle\Tests;
 
+use WildSiena\GoogleMapsBundle\Enum\MapType;
 use WildSiena\GoogleMapsBundle\Model\GoogleMap;
 use WildSiena\GoogleMapsBundle\Model\LatLng;
 use WildSiena\GoogleMapsBundle\Model\LoaderOptions;
@@ -65,5 +66,14 @@ class GoogleMapFactory
             ->setLoaderOptions(self::createLoaderOptions())
             ->setMapOptions($mapOptions);
     }
+
+    static function createGoogleMapWithMapTypeIdSatellite(): GoogleMap
+    {
+        $googleMap = self::createGoogleMapBasic();
+        $options = $googleMap->getMapOptions();
+        $options->setMapTypeId(MapType::SATELLITE);
+        return $googleMap;
+    }
+
 
 }

@@ -68,6 +68,11 @@ class GoogleMapExpected
         return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7,"disableDefaultUI":true,"zoomControl":true,"mapTypeControl":true,"scaleControl":true,"streetViewControl":true,"rotateControl":true,"fullscreenControl":true}');
     }
 
+    public static function getMapOptionsWithMapTypeIdSatellite(): string
+    {
+        return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7,"mapTypeId":"satellite"}');
+    }
+
     public static function getMapOptionsValueWithAllProperties(): string
     {
         return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7,"mapId":"DEMO_MAP_ID","disableDefaultUI":true}');
@@ -101,5 +106,10 @@ class GoogleMapExpected
     public static function getExpectedWithDisabledefaultUIAndActiveControls(): string
     {
         return self::getAttr(self::getDefaultLoaderOptionsValue(), self::getMapOptionsValueWithDisableDefaultUIAndActiveControls());
+    }
+
+    public static function getExpectedWithMapTypeIdSatellite(): string
+    {
+        return self::getAttr(self::getDefaultLoaderOptionsValue(), self::getMapOptionsWithMapTypeIdSatellite());
     }
 }
