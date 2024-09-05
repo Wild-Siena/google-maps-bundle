@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WildSiena\GoogleMapsBundle\Model;
 
-class LoaderOptions
+class LoaderOptions implements \JsonSerializable
 {
 
     public function __construct(protected string $apiKey, protected string $version)
@@ -47,6 +47,12 @@ class LoaderOptions
         return $this;
     }
 
-
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return \get_object_vars($this);
+    }
 
 }

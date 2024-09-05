@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace WildSiena\GoogleMapsBundle\Twig;
 
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\UX\StimulusBundle\Dto\StimulusAttributes;
 use Symfony\UX\StimulusBundle\Helper\StimulusHelper;
 use Twig\Extension\AbstractExtension;
@@ -15,7 +14,6 @@ class GoogleMapsExtension extends AbstractExtension
 
     public function __construct(
         private readonly StimulusHelper $stimulusHelper,
-        private readonly SerializerInterface $serializer
     )
     {
 
@@ -59,19 +57,15 @@ class GoogleMapsExtension extends AbstractExtension
 
     private function buildHtmlAttributes(StimulusAttributes $stimulusAttributes, GoogleMap $googleMap): string
     {
-        //Validate that markers are not null.
-        //If they are null they will not appear in the controllerValues.
-        $markers = [];
-        if($googleMap->getMarkers() !== null) {
-           $markers['markers'] = $this->serializer->serialize($googleMap->getMarkers(), 'json');
-        }
 
+        $mapMarkers = $googleMap->getMarkers();
+        $markers = $mapMarkers !== null ? ['markers' => $mapMarkers] : [];
 
         $stimulusAttributes->addController(
             controllerName: 'wild-siena/google-maps-bundle/google_maps',
             controllerValues: \array_merge([
-                'loaderOptions' => $this->serializer->serialize($googleMap->getLoaderOptions(), 'json'),
-                'mapOptions' => $this->serializer->serialize($googleMap->getMapOptions(), 'json'),
+                'loaderOptions' => $googleMap->getLoaderOptions(),
+                'mapOptions' => $googleMap->getMapOptions(),
             ], $markers)
         );
         return sprintf('%s', $stimulusAttributes);

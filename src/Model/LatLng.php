@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WildSiena\GoogleMapsBundle\Model;
 
-class LatLng
+class LatLng implements \JsonSerializable
 {
     public function __construct(protected float $lat, protected float $lng)
     {
@@ -46,6 +46,12 @@ class LatLng
         return $this;
     }
 
-
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return \get_object_vars($this);
+    }
 
 }

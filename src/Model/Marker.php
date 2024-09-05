@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WildSiena\GoogleMapsBundle\Model;
 
-class Marker
+class Marker implements \JsonSerializable
 {
     protected string $title;
     public function __construct(protected LatLng $position)
@@ -47,5 +47,12 @@ class Marker
         return $this;
     }
 
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return \get_object_vars($this);
+    }
 
 }
