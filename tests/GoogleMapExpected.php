@@ -33,9 +33,9 @@ class GoogleMapExpected
         string    $attrs = "",
     ): string
     {
-        $loaderOptions = self::replace(\json_encode($googleMap->getLoaderOptions()));
-        $mapOptions = self::replace(\json_encode($googleMap->getMapOptions()));
-        $markers = self::replace($googleMap->getMarkers() !== null ? \json_encode($googleMap->getMarkers()) : "");
+        $loaderOptions = self::replace(\json_encode($googleMap->getLoaderOptions()) ?: "");
+        $mapOptions = self::replace(\json_encode($googleMap->getMapOptions()) ?: "");
+        $markers = self::replace($googleMap->getMarkers() !== null ? \json_encode($googleMap->getMarkers()) ?: "" : "");
 
         $formatedAttrs = empty($attrs) ? "" : $attrs . " ";
         $expected = "data-controller=\"wild-siena--google-maps-bundle--google-maps\" $formatedAttrs";

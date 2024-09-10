@@ -48,7 +48,7 @@ class Marker implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return array<mixed>
      */
     public function jsonSerialize(): array
     {

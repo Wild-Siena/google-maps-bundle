@@ -203,13 +203,8 @@ class MapOptions implements \JsonSerializable
         return $this;
     }
 
-    public function toArray(): array
-    {
-        return \get_object_vars($this);
-    }
-
     /**
-     * @return mixed
+     * @return array<mixed>
      */
     public function jsonSerialize(): array
     {
