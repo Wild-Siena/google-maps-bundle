@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WildSiena\GoogleMapsBundle\Model;
 
-class MapOptions
+class MapOptions implements \JsonSerializable
 {
     protected string $mapId;
     protected bool $disableDefaultUI;
@@ -202,5 +202,12 @@ class MapOptions
         $this->fullscreenControl = $fullscreenControl;
         return $this;
     }
-    
+
+    /**
+     * @return array<mixed>
+     */
+    public function jsonSerialize(): array
+    {
+        return \get_object_vars($this);
+    }
 }
