@@ -77,6 +77,11 @@ Examples
 When you use marker you need a mapId.
 
 ```php
+use WildSiena\GoogleMapsBundle\Model\LoaderOptions;
+use WildSiena\GoogleMapsBundle\Model\MapOptions; 
+use WildSiena\GoogleMapsBundle\Model\GoogleMap;
+use WildSiena\GoogleMapsBundle\Model\LatLng;
+use WildSiena\GoogleMapsBundle\Model\Marker;
 // ...
 $loaderOptions = new LoaderOptions(apiKey: '<YOUR_API_KEY>', version: 'weekly');    
 $mapOptions = new MapOptions(center: new LatLng(lat: 24.01, lng: 32.22), zoom: 7);
@@ -105,6 +110,12 @@ services:
 ```
 
 ```php
+use WildSiena\GoogleMapsBundle\Model\LoaderOptions;
+use WildSiena\GoogleMapsBundle\Model\MapOptions; 
+use WildSiena\GoogleMapsBundle\Model\GoogleMap;
+use WildSiena\GoogleMapsBundle\Model\LatLng;
+use WildSiena\GoogleMapsBundle\Model\Marker;
+// ...
 #[Route('/', name: 'app_home')]
 #[Template('home/index.html.twig')]
 public function index(LoaderOptions $loaderOptions, GoogleMap $googleMap): array
@@ -122,6 +133,11 @@ public function index(LoaderOptions $loaderOptions, GoogleMap $googleMap): array
 ### Example with disabled ui
 
 ```php
+use WildSiena\GoogleMapsBundle\Model\LoaderOptions;
+use WildSiena\GoogleMapsBundle\Model\MapOptions; 
+use WildSiena\GoogleMapsBundle\Model\GoogleMap;
+use WildSiena\GoogleMapsBundle\Model\LatLng;
+use WildSiena\GoogleMapsBundle\Model\Marker;
 // ...
 $loaderOptions = new LoaderOptions(apiKey: '<YOUR_API_KEY>', version: 'weekly');    
 $mapOptions = new MapOptions(center: new LatLng(lat: 24.01, lng: 32.22), zoom: 7);
@@ -140,6 +156,10 @@ $googleMap
 ### Example using controls
 
 ```php
+use WildSiena\GoogleMapsBundle\Model\LoaderOptions;
+use WildSiena\GoogleMapsBundle\Model\MapOptions; 
+use WildSiena\GoogleMapsBundle\Model\GoogleMap;
+use WildSiena\GoogleMapsBundle\Model\LatLng;
 // ...
 $loaderOptions = new LoaderOptions(apiKey: '<YOUR_API_KEY>', version: 'weekly');    
 $mapOptions = new MapOptions(center: new LatLng(lat: 24.01, lng: 32.22), zoom: 7);
@@ -151,10 +171,32 @@ $mapOptions->setDisableDefaultUI(true)
     ->setRotateControl(true)
     ->setFullscreenControl(true);
     
+$googleMap = new GoogleMap();
 $googleMap
     ->setLoaderOptions($loaderOptions)
     ->setMapOptions($mapOptions)
 // ...
 ```
+
+### Example changing map display to Satellite
+
+```php
+use WildSiena\GoogleMapsBundle\Model\LoaderOptions;
+use WildSiena\GoogleMapsBundle\Model\MapOptions; 
+use WildSiena\GoogleMapsBundle\Model\GoogleMap; 
+use WildSiena\GoogleMapsBundle\Model\LatLng;
+use WildSiena\GoogleMapsBundle\Enum\MapType;
+// ...
+$loaderOptions = new LoaderOptions(apiKey: '<YOUR_API_KEY>', version: 'weekly');    
+$mapOptions = new MapOptions(center: new LatLng(lat: 24.01, lng: 32.22), zoom: 7);
+$mapOptions->setMapTypeId(MapType::SATELLITE);
+
+$googleMap = new GoogleMap();    
+$googleMap
+    ->setLoaderOptions($loaderOptions)
+    ->setMapOptions($mapOptions)
+// ...
+```
+
 
 
