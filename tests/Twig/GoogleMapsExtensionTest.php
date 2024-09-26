@@ -10,7 +10,6 @@ use Symfony\Component\Serializer\Normalizer\BackedEnumNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\UX\StimulusBundle\Helper\StimulusHelper;
-use WildSiena\GoogleMapsBundle\Enum\MapType;
 use WildSiena\GoogleMapsBundle\Model\GoogleMap;
 use WildSiena\GoogleMapsBundle\Tests\GoogleMapExpected;
 use WildSiena\GoogleMapsBundle\Twig\GoogleMapsExtension;

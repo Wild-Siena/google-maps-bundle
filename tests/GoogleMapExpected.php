@@ -5,18 +5,13 @@ namespace WildSiena\GoogleMapsBundle\Tests;
 
 class GoogleMapExpected
 {
-    const CURLY_BRACKET_OPEN = '&#x7B;';
-    const CURLY_BRACKET_CLOSE = '&#x7D;';
-    const SQUARE_BRACKET_OPEN = '&#x5B;';
-    const SQUARE_BRACKET_CLOSE = '&#x5D;';
-    const COLON = '&#x3A;';
     const DOUBLE_QUOT = '&quot;';
 
     private static function toDataValue(string $value): string
     {
         return str_replace(
-            ['{', '}', '[', ']', ':', '"'],
-            [self::CURLY_BRACKET_OPEN, self::CURLY_BRACKET_CLOSE, self::SQUARE_BRACKET_OPEN, self::SQUARE_BRACKET_CLOSE, self::COLON, self::DOUBLE_QUOT],
+            ['"'],
+            [self::DOUBLE_QUOT],
             $value
         );
     }
