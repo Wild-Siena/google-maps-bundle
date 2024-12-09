@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WildSiena\GoogleMapsBundle\Model;
 
+use WildSiena\GoogleMapsBundle\Enum\GestureType;
 use WildSiena\GoogleMapsBundle\Enum\MapType;
 
 class MapOptions
@@ -16,6 +17,7 @@ class MapOptions
     protected bool $rotateControl;
     protected bool $fullscreenControl;
     protected MapType $mapTypeId;
+    protected GestureType $gestureHandling;
 
     /**
      * @param LatLng $center
@@ -226,6 +228,23 @@ class MapOptions
         return $this;
     }
 
+    /**
+     * @return GestureType
+     */
+    public function getGestureHandling(): GestureType
+    {
+        return $this->gestureHandling;
+    }
 
-    
+    /**
+     * @param GestureType $gestureHandling
+     * @return MapOptions
+     */
+    public function setGestureHandling(GestureType $gestureHandling): MapOptions
+    {
+        $this->gestureHandling = $gestureHandling;
+        return $this;
+    }
+
+
 }

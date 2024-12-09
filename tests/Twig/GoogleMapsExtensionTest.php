@@ -18,6 +18,7 @@ use WildSiena\GoogleMapsBundle\Tests\GoogleMapFactory;
 class GoogleMapsExtensionTest extends TestCase
 {
 
+    protected Serializer $serializer;
     protected GoogleMapsExtension $googleMapsExtension;
 
     /**
@@ -26,12 +27,41 @@ class GoogleMapsExtensionTest extends TestCase
     public static function renderGoogleMapsDataProvider(): array
     {
         return [
-            'no attributes' => [GoogleMapFactory::createGoogleMapBasic(), [], GoogleMapExpected::getDefaultExpected()],
-            'class attribute' => [GoogleMapFactory::createGoogleMapBasic(), ['class' => 'h-full'], GoogleMapExpected::getExpectedWithAttr()],
-            'markers' => [GoogleMapFactory::createGoogleMapWithMarkers(), [], GoogleMapExpected::getExpectedWithMarkers()],
-            'disabled default ui' => [GoogleMapFactory::createGoogleMapWithDisabledDefaultUi(), [], GoogleMapExpected::getExpectedWithDisabledefaultUI()],
-            'disabled default ui activated controls' => [GoogleMapFactory::createGoogleMapWithActivatedControls(), [], GoogleMapExpected::getExpectedWithDisabledefaultUIAndActiveControls()],
-            'mapTypeId set to satellite' => [GoogleMapFactory::createGoogleMapWithMapTypeIdSatellite(), [], GoogleMapExpected::getExpectedWithMapTypeIdSatellite()]
+            'no attributes' => [
+                GoogleMapFactory::getGoogleMap(),
+                [],
+                GoogleMapExpected::getGoogleMapAttrExpected()
+            ],
+            'class attribute' => [
+                GoogleMapFactory::getGoogleMap(),
+                ['class' => 'h-full'],
+                GoogleMapExpected::getGoogleMapAttrWithClassHfullExpected()
+            ],
+            'markers' => [
+                GoogleMapFactory::getGoogleMapWithMarkers(),
+                [],
+                GoogleMapExpected::getGoogleMapAttrWithMarkersExpected()
+            ],
+            'disabled default ui' => [
+                GoogleMapFactory::getGoogleMapWithDisabledDefaultUi(),
+                [],
+                GoogleMapExpected::getGoogleMapAttrWithDisabledDefaultUI()
+            ],
+            'disabled default ui activated controls' => [
+                GoogleMapFactory::getGoogleMapWithActivatedControls(),
+                [],
+                GoogleMapExpected::getGoogleMapAttrWithDisableDefaultUIAndActiveControls()
+            ],
+            'mapTypeId set to satellite' => [
+                GoogleMapFactory::getGoogleMapWithMapTypeIdSatellite(),
+                [],
+                GoogleMapExpected::getGoogleMapAttrWithMapTypeIdSatellite()
+            ],
+            'gestureHandling set to cooperative' => [
+                GoogleMapFactory::getGoogleMapWithGestureHandlingCooperative(),
+                [],
+                GoogleMapExpected::getGoogleMapAttrWithGestureHandlingCooperative()
+            ],
         ];
     }
 
@@ -41,11 +71,30 @@ class GoogleMapsExtensionTest extends TestCase
     public static function getGoogleMapsAttributesDataProvider(): array
     {
         return [
-            'no markers' => [GoogleMapFactory::createGoogleMapBasic(), GoogleMapExpected::getDefaultExpected()],
-            'markers' => [GoogleMapFactory::createGoogleMapWithMarkers(), GoogleMapExpected::getExpectedWithMarkers()],
-            'disabled default ui' => [GoogleMapFactory::createGoogleMapWithDisabledDefaultUi(), GoogleMapExpected::getExpectedWithDisabledefaultUI()],
-            'disabled default ui activated controls' => [GoogleMapFactory::createGoogleMapWithActivatedControls(), GoogleMapExpected::getExpectedWithDisabledefaultUIAndActiveControls()],
-            'mapTypeId set to satellite' => [GoogleMapFactory::createGoogleMapWithMapTypeIdSatellite(), GoogleMapExpected::getExpectedWithMapTypeIdSatellite()]
+            'no markers' => [
+                GoogleMapFactory::getGoogleMap(),
+                GoogleMapExpected::getGoogleMapAttrExpected()
+            ],
+            'markers' => [
+                GoogleMapFactory::getGoogleMapWithMarkers(),
+                GoogleMapExpected::getGoogleMapAttrWithMarkersExpected()
+            ],
+            'disabled default ui' => [
+                GoogleMapFactory::getGoogleMapWithDisabledDefaultUi(),
+                GoogleMapExpected::getGoogleMapAttrWithDisabledDefaultUI()
+            ],
+            'disabled default ui activated controls' => [
+                GoogleMapFactory::getGoogleMapWithActivatedControls(),
+                GoogleMapExpected::getGoogleMapAttrWithDisableDefaultUIAndActiveControls()
+            ],
+            'mapTypeId set to satellite' => [
+                GoogleMapFactory::getGoogleMapWithMapTypeIdSatellite(),
+                GoogleMapExpected::getGoogleMapAttrWithMapTypeIdSatellite()
+            ],
+            'gestureHandling set to cooperative' => [
+                GoogleMapFactory::getGoogleMapWithGestureHandlingCooperative(),
+                GoogleMapExpected::getGoogleMapAttrWithGestureHandlingCooperative()
+            ],
         ];
     }
 
@@ -53,9 +102,9 @@ class GoogleMapsExtensionTest extends TestCase
     {
         // Dependencies
         $stimulusHelper = new StimulusHelper(null);
-        $serializer = new Serializer([new BackedEnumNormalizer(), new ObjectNormalizer()], [new JsonEncode()]);
+        $this->serializer = new Serializer([new BackedEnumNormalizer(), new ObjectNormalizer()], [new JsonEncode()]);
 
-        $this->googleMapsExtension = new GoogleMapsExtension($stimulusHelper, $serializer);
+        $this->googleMapsExtension = new GoogleMapsExtension($stimulusHelper, $this->serializer);
     }
 
     /**
