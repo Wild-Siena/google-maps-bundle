@@ -18,7 +18,7 @@ A clear and concise description of what you want to happen.
 Add a list of tasks
 - [ ] Adjust tests.
 - [ ] Write changelog.
-- [ ] Write docu.
+- [ ] Write docs.
 
 **Additional context**
 Add any other context or screenshots about the feature request here.

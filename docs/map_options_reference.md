@@ -57,7 +57,7 @@ When set to ``true`` you see the fullscreen button.
 
 You can set the mapTypeId to four different values.
 ``MapType::ROADMAP``, ``MapType::SATELLITE``, ``MapType::HYBRID``, ``MapType::TERRAIN``
-With this property you can change the display of the map.
+This property lets you change in which style the map is displayed.
 
 **gestureHandling**: GestureType (optional)
 
