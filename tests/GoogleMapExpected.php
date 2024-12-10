@@ -7,7 +7,7 @@ class GoogleMapExpected
 {
     const DOUBLE_QUOT = '&quot;';
 
-    private static function toDataValue(string $value): string
+    private static function getValue(string $value): string
     {
         return str_replace(
             ['"'],
@@ -16,12 +16,7 @@ class GoogleMapExpected
         );
     }
 
-    public static function getValue(string $value): string
-    {
-        return self::toDataValue($value);
-    }
-
-    public static function getAttr(
+    private static function getAttr(
         string $expectedLoaderOptionsValue,
         string $expectedMapOptionsValue,
         string $attrs = "",
@@ -38,73 +33,108 @@ class GoogleMapExpected
         return $expected;
     }
 
-    public static function getDefaultLoaderOptionsValue(): string
+    private static function getLoaderOptionsValue(): string
     {
-        return self::getValue('{"apiKey":"api_123456","version":"weekly"}');
+        return self::getValue('{"apiKey":"api_key_123456","version":"weekly"}');
     }
 
-    public static function getDefaultMapOptionsValue(): string
+    private static function getMapOptionsValue(): string
     {
         return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7}');
     }
 
-    public static function getMapOptionsValueWithMapId(): string
+    private static function getMarkersValue(): string
     {
-        return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7,"mapId":"DEMO_MAP_ID"}');
+        return self::getValue('[{"position":{"lat":-43.0,"lng":29.2}}]');
     }
 
-    public static function getMapOptionsValueWithDisableDefaultUI(): string
+    private static function getMapOptionsValueWithDisableDefaultUI(): string
     {
         return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7,"disableDefaultUI":true}');
     }
 
-    public static function getMapOptionsValueWithDisableDefaultUIAndActiveControls(): string
+    private static function getMapOptionsValueWithDisableDefaultUIAndActiveControls(): string
     {
         return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7,"disableDefaultUI":true,"zoomControl":true,"mapTypeControl":true,"scaleControl":true,"streetViewControl":true,"rotateControl":true,"fullscreenControl":true}');
     }
 
-    public static function getMapOptionsWithMapTypeIdSatellite(): string
+    private static function getMapOptionsWithMapTypeIdSatellite(): string
     {
         return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7,"mapTypeId":"satellite"}');
     }
 
-    public static function getMapOptionsValueWithAllProperties(): string
+    private static function getMapOptionsValueWithGestureHandlingCooperative(): string
     {
-        return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7,"mapId":"DEMO_MAP_ID","disableDefaultUI":true}');
+        return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7,"gestureHandling":"cooperative"}');
     }
 
-    public static function getMarkersValue(): string
+    public static function getGoogleMapAttrExpected(): string
     {
-        return self::getValue('[{"position":{"lat":-43.12,"lng":29.22}}]');
+        return self::getAttr(
+            self::getLoaderOptionsValue(),
+            self::getMapOptionsValue()
+        );
     }
 
-    public static function getDefaultExpected(): string
+    public static function getGoogleMapAttrWithClassHfullExpected(): string
     {
-        return self::getAttr(self::getDefaultLoaderOptionsValue(), self::getDefaultMapOptionsValue());
+        return self::getAttr(
+            self::getLoaderOptionsValue(),
+            self::getMapOptionsValue(),
+            "class=\"h-full\""
+        );
     }
 
-    public static function getExpectedWithAttr(): string
+    public static function getGoogleMapAttrWithMarkersExpected(): string
     {
-        return self::getAttr(self::getDefaultLoaderOptionsValue(), self::getDefaultMapOptionsValue(), "class=\"h-full\"");
+        return self::getAttr(
+            self::getLoaderOptionsValue(),
+            self::getMapOptionsValue(),
+            expectedMarkersValue: self::getMarkersValue()
+        );
     }
 
-    public static function getExpectedWithMarkers(): string
+    public static function getGoogleMapAttrWithDisabledDefaultUI(): string
     {
-        return self::getAttr(self::getDefaultLoaderOptionsValue(), self::getDefaultMapOptionsValue(), expectedMarkersValue: self::getMarkersValue());
+        return self::getAttr(
+            self::getLoaderOptionsValue(),
+            self::getMapOptionsValueWithDisableDefaultUI()
+        );
     }
 
-    public static function getExpectedWithDisabledefaultUI(): string
+    public static function getGoogleMapAttrWithDisableDefaultUIAndActiveControls(): string
     {
-        return self::getAttr(self::getDefaultLoaderOptionsValue(), self::getMapOptionsValueWithDisableDefaultUI());
+        return self::getAttr(
+            self::getLoaderOptionsValue(),
+            self::getMapOptionsValueWithDisableDefaultUIAndActiveControls()
+        );
     }
 
-    public static function getExpectedWithDisabledefaultUIAndActiveControls(): string
+    public static function getGoogleMapAttrWithMapTypeIdSatellite(): string
     {
-        return self::getAttr(self::getDefaultLoaderOptionsValue(), self::getMapOptionsValueWithDisableDefaultUIAndActiveControls());
+        return self::getAttr(
+            self::getLoaderOptionsValue(),
+            self::getMapOptionsWithMapTypeIdSatellite()
+        );
     }
 
-    public static function getExpectedWithMapTypeIdSatellite(): string
+    public static function getGoogleMapAttrWithGestureHandlingCooperative(): string
     {
-        return self::getAttr(self::getDefaultLoaderOptionsValue(), self::getMapOptionsWithMapTypeIdSatellite());
+        return self::getAttr(
+            self::getLoaderOptionsValue(),
+            self::getMapOptionsValueWithGestureHandlingCooperative()
+        );
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }

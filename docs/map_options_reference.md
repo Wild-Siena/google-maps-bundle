@@ -57,7 +57,14 @@ When set to ``true`` you see the fullscreen button.
 
 You can set the mapTypeId to four different values.
 ``MapType::ROADMAP``, ``MapType::SATELLITE``, ``MapType::HYBRID``, ``MapType::TERRAIN``
-With this property you can change the display of the map
+This property lets you change in which style the map is displayed.
+
+**gestureHandling**: GestureType (optional)
+
+You can set the gestureHandling to four different values.
+``GestureType::COOPERATIVE``, ``GestureType::AUTO``, ``GestureType::GREEDY``, ``GestureType::NONE``
+With this property you can change the zoom behavior when scrolling.
+
 
 
 
@@ -151,7 +158,18 @@ Create a new MapOptions instance with display a satellite map.
 
 ```php
 use WildSiena\GoogleMapsBundle\Model\MapOptions;
+use WildSiena\GoogleMapsBundle\Enum\MapType;
 
 $mapOptions = new MapOptions(center: new LatLng(lat: 42.42, lng: 42.42), zoom: 7);
 $mapOptions->setMapTypeId(MapType::SATELLITE);
+```
+
+Create a new MapOptions instance with gestureType set to cooperative.
+
+```php
+use WildSiena\GoogleMapsBundle\Model\MapOptions;
+use WildSiena\GoogleMapsBundle\Enum\GestureType;
+
+$mapOptions = new MapOptions(center: new LatLng(lat: 42.42, lng: 42.42), zoom: 7);
+$mapOptions->setGestureHandling(GestureType::COOPERATIVE);
 ```

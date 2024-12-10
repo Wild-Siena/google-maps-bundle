@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WildSiena\GoogleMapsBundle\Tests;
 
+use WildSiena\GoogleMapsBundle\Enum\GestureType;
 use WildSiena\GoogleMapsBundle\Enum\MapType;
 use WildSiena\GoogleMapsBundle\Model\GoogleMap;
 use WildSiena\GoogleMapsBundle\Model\LatLng;
@@ -13,67 +14,98 @@ use WildSiena\GoogleMapsBundle\Model\Marker;
 class GoogleMapFactory
 {
 
-    static function createLoaderOptions(string $apiKey = 'api_123456', string $version = 'weekly'): LoaderOptions
+    static function createLoaderOptions(): LoaderOptions
     {
-        return new LoaderOptions(apiKey: $apiKey, version: $version);
+        return new LoaderOptions(apiKey: "api_key_123456", version: "weekly");
     }
 
-    static function createMapOptions(float $lat = -43.00, float $lng = 29.20, int $zoom = 7): MapOptions
+    static function createLatLng(): LatLng
     {
-        $latLng = new LatLng(lat: $lat, lng: $lng);
-        return new MapOptions(center: $latLng, zoom: $zoom);
+        return new LatLng(lat: -43.00, lng: 29.20);
     }
 
-    static function createGoogleMapBasic(): GoogleMap
+    /**
+     * @return Marker[]
+     */
+    static function createMarkers(): array
+    {
+        return [new Marker(self::createLatLng())];
+    }
+
+    static function createMapOptions(): MapOptions
+    {
+        return new MapOptions(center: self::createLatLng(), zoom: 7);
+    }
+
+    /**
+     * @param Marker[]|null $markers
+     */
+    static function createGoogleMap(MapOptions $mapOptions, ?array $markers): GoogleMap
     {
         $googleMap = new GoogleMap();
-        return $googleMap
-            ->setLoaderOptions(self::createLoaderOptions())
-            ->setMapOptions(self::createMapOptions());
-    }
-
-    static function createGoogleMapWithMarkers(float $lat = -43.12, float $lng = 29.22): GoogleMap
-    {
-        $googleMap = new GoogleMap();
-        return $googleMap
-            ->setLoaderOptions(self::createLoaderOptions())
-            ->setMapOptions(self::createMapOptions())
-            ->setMarkers([new Marker(position: new LatLng(lat: $lat, lng: $lng))]);
-    }
-
-    static function createGoogleMapWithDisabledDefaultUi(): GoogleMap
-    {
-        $mapOptions = self::createMapOptions();
-        $mapOptions->setDisableDefaultUI(true);
-        $googleMap = new GoogleMap();
-        return $googleMap
-            ->setLoaderOptions(self::createLoaderOptions())
+        $googleMap->setLoaderOptions(self::createLoaderOptions())
             ->setMapOptions($mapOptions);
-    }
 
-    static function createGoogleMapWithActivatedControls(): GoogleMap
-    {
-        $mapOptions = self::createMapOptions();
-        $mapOptions->setDisableDefaultUI(true)
-            ->setZoomControl(true)
-            ->setMapTypeControl(true)
-            ->setScaleControl(true)
-            ->setStreetViewControl(true)
-            ->setRotateControl(true)
-            ->setFullscreenControl(true);
-        $googleMap = new GoogleMap();
-        return $googleMap
-            ->setLoaderOptions(self::createLoaderOptions())
-            ->setMapOptions($mapOptions);
-    }
+        if (null !== $markers) {
+            $googleMap->setMarkers($markers);
+        }
 
-    static function createGoogleMapWithMapTypeIdSatellite(): GoogleMap
-    {
-        $googleMap = self::createGoogleMapBasic();
-        $options = $googleMap->getMapOptions();
-        $options->setMapTypeId(MapType::SATELLITE);
         return $googleMap;
     }
 
+    public static function getGoogleMap(): GoogleMap
+    {
+        return self::createGoogleMap(self::createMapOptions(), null);
+    }
+
+    public static function getGoogleMapWithMarkers(): GoogleMap
+    {
+        return self::createGoogleMap(
+            self::createMapOptions(),
+            self::createMarkers()
+        );
+    }
+
+    public static function getGoogleMapWithDisabledDefaultUi(): GoogleMap
+    {
+        return self::createGoogleMap(
+            self::createMapOptions()
+                ->setDisableDefaultUI(true),
+            null
+        );
+    }
+
+    public static function getGoogleMapWithActivatedControls(): GoogleMap
+    {
+        return self::createGoogleMap(
+            self::createMapOptions()
+                ->setDisableDefaultUI(true)
+                ->setZoomControl(true)
+                ->setFullscreenControl(true)
+                ->setRotateControl(true)
+                ->setScaleControl(true)
+                ->setStreetViewControl(true)
+                ->setMapTypeControl(true),
+            null
+        );
+    }
+
+    public static function getGoogleMapWithMapTypeIdSatellite(): GoogleMap
+    {
+        return self::createGoogleMap(
+            self::createMapOptions()
+            ->setMapTypeId(MapType::SATELLITE),
+            null
+        );
+    }
+
+    public static function getGoogleMapWithGestureHandlingCooperative(): GoogleMap
+    {
+        return self::createGoogleMap(
+            self::createMapOptions()
+                ->setGestureHandling(GestureType::COOPERATIVE),
+            null
+        );
+    }
 
 }
