@@ -62,6 +62,11 @@ class GoogleMapsExtensionTest extends TestCase
                 [],
                 GoogleMapExpected::getGoogleMapAttrWithGestureHandlingCooperative()
             ],
+            'color scheme set to dark' => [
+                GoogleMapFactory::getGoogleMapWithColorSchemeDark(),
+                [],
+                GoogleMapExpected::getGoogleMapAttrWithColorSchemeDark()
+            ],
         ];
     }
 
@@ -94,6 +99,10 @@ class GoogleMapsExtensionTest extends TestCase
             'gestureHandling set to cooperative' => [
                 GoogleMapFactory::getGoogleMapWithGestureHandlingCooperative(),
                 GoogleMapExpected::getGoogleMapAttrWithGestureHandlingCooperative()
+            ],
+            'color scheme set to dark' => [
+                GoogleMapFactory::getGoogleMapWithColorSchemeDark(),
+                GoogleMapExpected::getGoogleMapAttrWithColorSchemeDark()
             ],
         ];
     }

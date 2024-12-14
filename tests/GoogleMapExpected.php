@@ -68,6 +68,11 @@ class GoogleMapExpected
         return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7,"gestureHandling":"cooperative"}');
     }
 
+    private static function getMapOptionsValueWithColorSchemeDark(): string
+    {
+        return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7,"colorScheme":"DARK"}');
+    }
+
     public static function getGoogleMapAttrExpected(): string
     {
         return self::getAttr(
@@ -123,6 +128,14 @@ class GoogleMapExpected
         return self::getAttr(
             self::getLoaderOptionsValue(),
             self::getMapOptionsValueWithGestureHandlingCooperative()
+        );
+    }
+
+    public static function getGoogleMapAttrWithColorSchemeDark(): string
+    {
+        return self::getAttr(
+            self::getLoaderOptionsValue(),
+            self::getMapOptionsValueWithColorSchemeDark()
         );
     }
 

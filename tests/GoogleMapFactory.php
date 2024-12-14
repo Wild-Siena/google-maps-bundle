@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WildSiena\GoogleMapsBundle\Tests;
 
+use WildSiena\GoogleMapsBundle\Enum\ColorSchemeType;
 use WildSiena\GoogleMapsBundle\Enum\GestureType;
 use WildSiena\GoogleMapsBundle\Enum\MapType;
 use WildSiena\GoogleMapsBundle\Model\GoogleMap;
@@ -104,6 +105,15 @@ class GoogleMapFactory
         return self::createGoogleMap(
             self::createMapOptions()
                 ->setGestureHandling(GestureType::COOPERATIVE),
+            null
+        );
+    }
+
+    public static function getGoogleMapWithColorSchemeDark(): GoogleMap
+    {
+        return self::createGoogleMap(
+            self::createMapOptions()
+                ->setColorScheme(ColorSchemeType::DARK),
             null
         );
     }

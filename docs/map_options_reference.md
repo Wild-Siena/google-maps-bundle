@@ -47,7 +47,8 @@ When set to ``true`` you see the Pegman control that can be dragged and dropped 
 
 **rotateControl**: bool (optional)
 
-When set to ``true`` you see the Button where you can change tilt and rotate options for maps containing oblique imagery.
+When set to ``true`` you see the Button where you can change tilt and rotate options for maps containing oblique
+imagery.
 
 **fullscreenControl**: bool (optional)
 
@@ -65,6 +66,12 @@ You can set the gestureHandling to four different values.
 ``GestureType::COOPERATIVE``, ``GestureType::AUTO``, ``GestureType::GREEDY``, ``GestureType::NONE``
 With this property you can change the zoom behavior when scrolling.
 
+**colorScheme**: ColorSchemeType (optional)
+
+You can set the colorScheme to three different values.
+``ColorSchemeType::LIGHT``, ``ColorSchemeType::DARK``, ``ColorSchemeType::FOLLOW_SYSTEM``
+With this property you can change light or dark mode of a map. This is only possible for the map type ``terrain`` and
+``roadmap``.
 
 
 
@@ -72,6 +79,7 @@ Examples
 --------
 
 Create a new MapOptions instance.
+
 ```php
 use WildSiena\GoogleMapsBundle\Model\MapOptions;
 
@@ -79,6 +87,7 @@ new MapOptions(center: new LatLng(lat: 42.42, lng: 42.42), zoom: 7);
 ```
 
 Create a new MapOptions instance with mapId.
+
 ```php
 use WildSiena\GoogleMapsBundle\Model\MapOptions;
 
@@ -87,6 +96,7 @@ $mapOptions->setMapId("DEMO_MAP_ID");
 ```
 
 Create a new MapOptions instance with disabled default ui.
+
 ```php
 use WildSiena\GoogleMapsBundle\Model\MapOptions;
 
@@ -172,4 +182,14 @@ use WildSiena\GoogleMapsBundle\Enum\GestureType;
 
 $mapOptions = new MapOptions(center: new LatLng(lat: 42.42, lng: 42.42), zoom: 7);
 $mapOptions->setGestureHandling(GestureType::COOPERATIVE);
+```
+
+Create a new MapOptions instance with colorScheme set to DARK.
+
+```php
+use WildSiena\GoogleMapsBundle\Model\MapOptions;
+use WildSiena\GoogleMapsBundle\Enum\ColorSchemeType;
+
+$mapOptions = new MapOptions(center: new LatLng(lat: 42.42, lng: 42.42), zoom: 7);
+$mapOptions->setColorScheme(ColorSchemeType::DARK);
 ```
