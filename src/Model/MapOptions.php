@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WildSiena\GoogleMapsBundle\Model;
 
+use WildSiena\GoogleMapsBundle\Enum\ColorSchemeType;
 use WildSiena\GoogleMapsBundle\Enum\GestureType;
 use WildSiena\GoogleMapsBundle\Enum\MapType;
 
@@ -18,6 +19,7 @@ class MapOptions
     protected bool $fullscreenControl;
     protected MapType $mapTypeId;
     protected GestureType $gestureHandling;
+    protected ColorSchemeType $colorScheme;
 
     /**
      * @param LatLng $center
@@ -243,6 +245,24 @@ class MapOptions
     public function setGestureHandling(GestureType $gestureHandling): MapOptions
     {
         $this->gestureHandling = $gestureHandling;
+        return $this;
+    }
+
+    /**
+     * @return ColorSchemeType
+     */
+    public function getColorScheme(): ColorSchemeType
+    {
+        return $this->colorScheme;
+    }
+
+    /**
+     * @param ColorSchemeType $colorScheme
+     * @return MapOptions
+     */
+    public function setColorScheme(ColorSchemeType $colorScheme): MapOptions
+    {
+        $this->colorScheme = $colorScheme;
         return $this;
     }
 
