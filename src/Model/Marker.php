@@ -6,6 +6,7 @@ namespace WildSiena\GoogleMapsBundle\Model;
 class Marker
 {
     protected string $title;
+    protected PinElement $content;
     public function __construct(protected LatLng $position)
     {
 
@@ -44,6 +45,24 @@ class Marker
     public function setTitle(string $title): Marker
     {
         $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @return PinElement
+     */
+    public function getContent(): PinElement
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param PinElement $content
+     * @return Marker
+     */
+    public function setContent(PinElement $content): Marker
+    {
+        $this->content = $content;
         return $this;
     }
 

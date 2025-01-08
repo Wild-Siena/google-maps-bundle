@@ -67,6 +67,11 @@ class GoogleMapsExtensionTest extends TestCase
                 [],
                 GoogleMapExpected::getGoogleMapAttrWithColorSchemeDark()
             ],
+            'set pin element to a marker' => [
+                GoogleMapFactory::getGoogleMapWithPinElementInMarker(),
+                [],
+                GoogleMapExpected::getGoogleMapAttrWithPinElementInMarker()
+            ]
         ];
     }
 
@@ -104,6 +109,10 @@ class GoogleMapsExtensionTest extends TestCase
                 GoogleMapFactory::getGoogleMapWithColorSchemeDark(),
                 GoogleMapExpected::getGoogleMapAttrWithColorSchemeDark()
             ],
+            'set pin element to a marker' => [
+                GoogleMapFactory::getGoogleMapWithPinElementInMarker(),
+                GoogleMapExpected::getGoogleMapAttrWithPinElementInMarker()
+            ]
         ];
     }
 

@@ -69,4 +69,4 @@ For more information see the [Documentation](./docs/index.md) there you find som
 
 Roadmap
 =======
-See all issues there are created for version [v1.0.0](https://github.com/Wild-Siena/google-maps-bundle/milestone/1)
+See all issues there are created for version [v1.1.0](https://github.com/Wild-Siena/google-maps-bundle/milestone/2)

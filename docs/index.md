@@ -10,6 +10,7 @@ See references of php classes and some examples.
 - [MapOptions](./map_options_reference.md) class
 - [LatLng](./lat_lng_reference.md) class
 - [Marker](./marker_reference.md) class
+- [PinElement](./pin_element_reference.md) class
 
 ### Basic
 ```php

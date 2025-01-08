@@ -16,7 +16,7 @@ export default class extends Controller {
      */
     async loadMap(loader) {
         const {Map} = await loader.importLibrary("maps");
-        const {AdvancedMarkerElement} = await loader.importLibrary("marker");
+        const {AdvancedMarkerElement, PinElement} = await loader.importLibrary("marker");
 
         // Create Map instance set it to the element which load this stimulus controller.
         const map = new Map(this.element, this.mapOptionsValue);
@@ -24,10 +24,12 @@ export default class extends Controller {
         // Set marker if markers are provided with markersValue
         if (this.hasMarkersValue) {
             this.markersValue.forEach((marker) => {
+                const pin = marker.content ? new PinElement(marker.content) : null;
                 new AdvancedMarkerElement({
                     map,
                     position: marker.position,
-                    title: marker.title
+                    title: marker.title,
+                    content: pin?.element
                 });
             });
         }
