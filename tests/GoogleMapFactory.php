@@ -11,6 +11,7 @@ use WildSiena\GoogleMapsBundle\Model\LatLng;
 use WildSiena\GoogleMapsBundle\Model\LoaderOptions;
 use WildSiena\GoogleMapsBundle\Model\MapOptions;
 use WildSiena\GoogleMapsBundle\Model\Marker;
+use WildSiena\GoogleMapsBundle\Model\PinElement;
 
 class GoogleMapFactory
 {
@@ -31,6 +32,16 @@ class GoogleMapFactory
     static function createMarkers(): array
     {
         return [new Marker(self::createLatLng())];
+    }
+
+    /**
+     * @return Marker[]
+     */
+    static function createMarkersWithPinElement(): array
+    {
+        $pin = (new PinElement())->setGlyph("A")->setGlyphColor("#fff");
+        $marker = (new Marker(self::createLatLng()))->setContent($pin);
+        return [$marker];
     }
 
     static function createMapOptions(): MapOptions
@@ -95,7 +106,7 @@ class GoogleMapFactory
     {
         return self::createGoogleMap(
             self::createMapOptions()
-            ->setMapTypeId(MapType::SATELLITE),
+                ->setMapTypeId(MapType::SATELLITE),
             null
         );
     }
@@ -115,6 +126,14 @@ class GoogleMapFactory
             self::createMapOptions()
                 ->setColorScheme(ColorSchemeType::DARK),
             null
+        );
+    }
+
+    public static function getGoogleMapWithPinElementInMarker(): GoogleMap
+    {
+        return self::createGoogleMap(
+            self::createMapOptions(),
+            self::createMarkersWithPinElement()
         );
     }
 

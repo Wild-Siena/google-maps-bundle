@@ -73,6 +73,11 @@ class GoogleMapExpected
         return self::getValue('{"center":{"lat":-43.0,"lng":29.2},"zoom":7,"colorScheme":"DARK"}');
     }
 
+    private static function getMarkersValueWithPinElement(): string
+    {
+        return self::getValue('[{"position":{"lat":-43.0,"lng":29.2},"content":{"glyphColor":"#fff","glyph":"A"}}]');
+    }
+
     public static function getGoogleMapAttrExpected(): string
     {
         return self::getAttr(
@@ -139,15 +144,12 @@ class GoogleMapExpected
         );
     }
 
-
-
-
-
-
-
-
-
-
-
-
+    public static function getGoogleMapAttrWithPinElementInMarker(): string
+    {
+        return self::getAttr(
+            self::getLoaderOptionsValue(),
+            self::getMapOptionsValue(),
+            expectedMarkersValue: self::getMarkersValueWithPinElement()
+        );
+    }
 }
